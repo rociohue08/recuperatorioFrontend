@@ -1,10 +1,17 @@
 <script setup lang="ts">
+
 // importar reactive
+import { reactive } from 'vue'
+
 // importar themeStore
+import {useThemeStore} from '@/stores/ThemeStore'
+
 // importart taskStore
+import { useTaskStore } from '@/stores/TaskStore'
 
 
 // importamos el modelo Task
+import {TaskModel} from '@/models/TaskModel'
 
 // iconos
 import { TrashIcon } from '@heroicons/vue/24/outline'
@@ -14,9 +21,15 @@ import { CheckCircleIcon as CompletedIcon } from '@heroicons/vue/24/solid'
 // definir variable para almacenar useThemeStore
 // definir variable reactiva pasando objeto themeStore
 
+const themeStore = useThemeStore()
+const theme = reactive(themeStore)
 
 // definir variable para almacenar useTaskStore
 // definir variable reactiva pasando objeto taskStore
+
+const taskStore = useTaskStore()
+const task = reactive(taskStore)
+
 
 
 
@@ -24,8 +37,10 @@ import { CheckCircleIcon as CompletedIcon } from '@heroicons/vue/24/solid'
 
 <template>
     <!-- div: usar v-bind:class para cambiar a modo oscuro -->
-    <div class="list-wrapper max-w rounded overflow-y-auto shadow-lg mt-10 p-4 transition ease-linear">
-        
+    <div v-bind:class="{'dark': themeStore.isDark}" class="list-wrapper max-w rounded overflow-y-auto shadow-lg mt-10 p-4 transition ease-linear"></div>
+
+
+
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">
                 Mis Tareas
@@ -58,8 +73,14 @@ import { CheckCircleIcon as CompletedIcon } from '@heroicons/vue/24/solid'
                 <div class="btns absolute right-0 top-0 py-2 sm:py-2.5 px-2 w-20 h-14 flex justify-around cursor-default" >
 
                     <!-- usar @click y llamar a funcion para borrar tarea -->
-                    <button class="p-1 cursor-pointer"><TrashIcon class="w-6 h-6 hover:text-red-500 "/></button> 
+                    <button @click="task.eliminarTarea()" class="p-1 cursor-pointer"><TrashIcon class="w-6 h-6 hover:text-red-500 "/></button>
                 </div>
+
+            </div>
+
+
+
+
 
                 <!-- indicador de tarea terminada, usar v-if segun corresponda -->
                 <span class="badge absolute right-10 inline-block bg-green-200 text-teal-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide">Completo</span>
@@ -73,7 +94,7 @@ import { CheckCircleIcon as CompletedIcon } from '@heroicons/vue/24/solid'
             <span class="inline-block bg-gray-300 rounded px-3 py-1 text-sm font-semibold mr-2 mb-2 hover:bg-gray-500 cursor-pointer shadow-lg">Todas</span>
             <span class="inline-block bg-gray-300 rounded px-3 py-1 text-sm font-semibold mr-2 mb-2 hover:bg-gray-500 cursor-pointer shadow-lg">Completas</span>
             <span class="inline-block bg-gray-300 rounded px-3 py-1 text-sm font-semibold mr-2 mb-2 hover:bg-gray-500 cursor-pointer shadow-lg">Pendientes</span>
-            
+
         </div>
 
     </div>

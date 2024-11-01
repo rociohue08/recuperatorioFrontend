@@ -3,19 +3,25 @@
 import { reactive } from 'vue';
 // importar reactive
 // importart useThemeStore
+import { useThemeStore } from './stores/ThemeStore';
 
 // iconos
 import { MoonIcon, SunIcon, LinkIcon } from '@heroicons/vue/24/solid'
 
 // instanciar useThemeStore
+
+const themeStore = useThemeStore()
+
 // crear variable reactiva con objeto useStore
 
+const theme = reactive(themeStore)
 
 </script>
 
 <template>
   <!-- usar directiva v-bind:class para asinar clase class si isDark en el store es true -->
-  <div class="wrapper transition ease-linear">
+  <div class="wrapper transition ease-linear" v-bind:class="{'dark': themeStore.isDark}">
+
     <div class="btn-wrapper">
       <div class="toggle-btn flex items-center justify-center w-full my-4">
         <label for="toggle" class="flex items-center justify-center cursor-pointer">

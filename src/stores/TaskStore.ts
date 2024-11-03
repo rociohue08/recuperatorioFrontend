@@ -9,16 +9,33 @@ export const useTaskStore  = defineStore({
 
     loading: false,
     data:[],
-
-
   }),
   actions: {
-    agregarTarea(task: Task) {
+    addTask(task: Task) {
       this.data.push(task);
     },
-    eliminarTarea(task: Task) {
+    removeTask(task: Task) {
       this.data = this.data.filter(t => t.id !== task.id);
     },
+    updateTaskStatus(task: Task) {
+      const index = this.data.findIndex(t => t.id === task.id);
+      if (index !== -1) {
+        this.data[index].status = task.status;
+      }
+    },
 
-  },
+    //opcionales
+    showCompleted(){
+
+    },
+    showPending(){
+
+    },
+    showAll(){
+
+    },
+  }
+
+
+
 });

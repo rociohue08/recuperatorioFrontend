@@ -44,10 +44,3 @@
 
 
 
-  // // Método para actualizar el estado de una tarea
-    // updateTaskStatus(task: Task) {
-    //   const index = this.data.findIndex(t => t.id === task.id);
-    //   if (index !== -1) {
-    //     this.data[index].status = task.status;
-    //   }
-    // },
